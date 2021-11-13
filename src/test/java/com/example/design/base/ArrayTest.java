@@ -18,5 +18,6 @@ public class ArrayTest {
         for (int newHeight : newHeights) {
             System.out.println(newHeight);
         }
+
     }
 }
