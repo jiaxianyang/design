@@ -13,4 +13,8 @@ public class Demo {
     public <T> T fun(T t) {
         return t;
     }
+
+    public <E> void go(E e) {
+        return;
+    }
 }

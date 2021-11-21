@@ -16,15 +16,21 @@ public class StreamTest {
                 .name("jia")
                 .age(18)
                 .weight(new BigDecimal(10.0))
+                .account("")
                 .build();
 
         Person ren = Person.builder()
                 .name("ren")
                 .age(19)
+                .account("")
                 .weight(new BigDecimal(11.0))
                 .build();
 
         List<Person> peoples = Lists.newArrayList(jia, ren);
+
+        Map<String, List<Person>> collect = peoples.stream().collect(Collectors.groupingBy(Person::getAccount));
+
+        System.out.println(collect);
 
 //        List<Integer> ages = peoples.stream().filter(person -> person.getName().equals("jia")).map(Person::getAge).collect(Collectors.toList());
 //        System.out.println(ages);

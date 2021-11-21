@@ -44,4 +44,9 @@ public class Person {
      * sonList
      */
     private List<Son> sonList;
+
+    /**
+     * account
+     */
+    private String account;
 }
