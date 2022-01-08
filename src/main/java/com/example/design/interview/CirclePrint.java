@@ -1,7 +1,5 @@
 package com.example.design.interview;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-
 import java.util.concurrent.Semaphore;
 
 /**

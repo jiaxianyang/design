@@ -1,5 +1,7 @@
 package com.example.design.base;
 
+import java.util.ArrayList;
+
 public class ArrayTest {
     public static void main(String[] args) {
 //

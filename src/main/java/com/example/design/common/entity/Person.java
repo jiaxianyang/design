@@ -49,4 +49,9 @@ public class Person {
      * account
      */
     private String account;
+
+    public Person(String name, Integer age) {
+        this.name = name;
+        this.age = age;
+    }
 }
