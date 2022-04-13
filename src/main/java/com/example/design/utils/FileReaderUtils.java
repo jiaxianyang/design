@@ -5,6 +5,8 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.tomcat.util.http.fileupload.FileUtils;
 
 import java.io.BufferedReader;
@@ -19,10 +21,9 @@ import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicInteger;
-
+@Slf4j
 public class FileReaderUtils {
 
-    public static final String filePath = "";
     public static final Set<String> result2 = Sets.newConcurrentHashSet();
     public static final Map<String, AtomicInteger> result = Maps.newConcurrentMap();
 
@@ -32,12 +33,7 @@ public class FileReaderUtils {
             , new ThreadPoolExecutor.DiscardPolicy());
 
     public static void main(String[] args) throws IOException, InterruptedException {
-        List<String> filePaths = Lists.newArrayList("出库单据_扩展属性_10_01__10_15_20211230160953.text",
-                "出库单据_扩展属性_11月_20211230123741.text", "出库单据_扩展属性_近30天_20211230123611.text");
-
-//        ,
-//        "3.text",
-//                "2.text"
+        List<String> filePaths = Lists.newArrayList("test.text");
         CountDownLatch countDownLatch = new CountDownLatch(filePaths.size());
         filePaths.forEach(filePath -> dealPool.submit(() -> {
             try {
@@ -55,7 +51,8 @@ public class FileReaderUtils {
         System.out.println(result2);
     }
 
-    private static void readFile(CountDownLatch countDownLatch, String filePath) throws IOException { Reader reader = null;
+    private static void readFile(CountDownLatch countDownLatch, String filePath) throws IOException {
+        Reader reader = null;
         BufferedReader br = null;
         try {
             reader = new InputStreamReader(FileUtils.class.getClassLoader().getResourceAsStream(filePath), "UTF-8");
@@ -65,9 +62,15 @@ public class FileReaderUtils {
             while ((line = br.readLine()) != null) {
                 Map<String, Object> map = null;
                 try {
+                    if (StringUtils.equals(line, "\uFEFFextend_attribute")) {
+                        continue;
+                    }
+                    if (StringUtils.equals(line, "extend_attribute")) {
+                        continue;
+                    }
                     map = JsonUtil.parseObject(line, Map.class);
                 } catch (Exception e) {
-                    continue;
+                    log.error("error: {}", line);
                 }
                 map.forEach((key, value) -> {
                     if (result.containsKey(key)) {

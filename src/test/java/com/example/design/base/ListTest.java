@@ -33,6 +33,28 @@ public class ListTest {
         personList.add(p3);
         personList.add(p4);
 
+        //必须全部都满足才会返回true
+        System.out.println(String.format("allMatch结果：%s", personList.stream().allMatch(person -> (person.getAge() == 5 ))));
+
+        //全都不满足才会返回true
+        System.out.println(String.format("noneMatch结果：%s", personList.stream().noneMatch(person -> (person.getAge() == 5 ))));
+
+        //只要有一个条件满足即返回true
+        System.out.println(String.format("anyMatch结果：%s", personList.stream().anyMatch(person -> (person.getAge() == 5 ))));
+
+        //如果为空List
+        List<Person> emptyPerponList = Lists.newArrayList();
+
+        //必须全部都满足才会返回true
+        System.out.println(String.format("empty List allMatch结果：%s", emptyPerponList.stream().allMatch(person -> (person.getAge() == 5 ))));
+
+        //全都不满足才会返回true
+        System.out.println(String.format("empty List noneMatch结果：%s", emptyPerponList.stream().noneMatch(person -> (person.getAge() == 5 ))));
+
+        //只要有一个条件满足即返回true
+        System.out.println(String.format("empty List anyMatch结果：%s", emptyPerponList.stream().anyMatch(person -> (person.getAge() == 5 ))));
+
+
         ImmutableList<Person> peopleListCopy = ImmutableList.copyOf(personList);
         System.out.println(personList);
         peopleListCopy.get(0).setAge(99);
