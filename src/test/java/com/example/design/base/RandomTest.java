@@ -1,5 +1,6 @@
 package com.example.design.base;
 
+import com.example.design.utils.SnowflakeSequenceGen;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
 
 import java.util.concurrent.LinkedBlockingQueue;

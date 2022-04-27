@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class DemoHandleEvent {
     private Long id;
+    private Long msgId;
     private String eventMsg;
 }

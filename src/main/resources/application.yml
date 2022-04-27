@@ -1,1 +1,12 @@
+server:
+  port: 9527
+  servlet:
+    # 增加此处后通过应用ip+端口方式或通过nginx都保持路径不变. 注意异步任务重置url提供的方法会多1层plan.
+    context-path: /design
+
+logging:
+  level:
+    learning: debug
+  file:
+    name: /export/logs/design.log
 

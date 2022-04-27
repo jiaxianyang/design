@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration status="DEBUG" name="defaultLogConfig" packages="">
+    <Properties>
+        <Property name="LOG.PATH">/export/Logs/design</Property>
+        <Property name="LOG.PATTERN">%d{yyyy-MM-dd HH:mm:ss.SSS},[%-5level],%t,%c{1} %L,[%X{jtrace.transaction.id}:%X{jtrace.parent.span.id}:%X{jtrace.span.id}],[%X{traceid}],[%X{operator}],[%X{warehouseno}]: %msg%n</Property>
+    </Properties>
+    <Appenders>
+        <Console name="console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${LOG.PATTERN}" />
+        </Console>
+        <!-- common -->
+        <RollingRandomAccessFile name="commonFile" fileName="${LOG.PATH}/common.log" filePattern="${LOG.PATH}/common-%i.log"
+                                 bufferSize="8192" immediateFlush="false" append="true" >
+            <PatternLayout pattern="${LOG.PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="20" />
+        </RollingRandomAccessFile >
+        <!-- error -->
+        <RollingRandomAccessFile name="errorFile" fileName="${LOG.PATH}/error.log" filePattern="${LOG.PATH}/error-%i.log"
+                                 bufferSize="1024" immediateFlush="false" append="true" >
+            <Filters>
+                <ThresholdFilter level="error" onMatch="ACCEPT" onMismatch="DENY"/>
+            </Filters>
+            <PatternLayout pattern="${LOG.PATTERN}" />
+            <Policies>
+                <SizeBasedTriggeringPolicy size="100MB" />
+            </Policies>
+            <DefaultRolloverStrategy max="5" />
+        </RollingRandomAccessFile >
+    </Appenders>
+    <Loggers>
+        <AsyncRoot level="debug">
+            <!-- 生产环境去掉console -->
+            <AppenderRef ref="commonFile" />
+            <AppenderRef ref="errorFile" />
+        </AsyncRoot>
+    </Loggers>
+</configuration>

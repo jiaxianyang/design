@@ -1,5 +1,6 @@
 package com.example.design.spring.event.listener;
 
+import com.example.design.utils.SnowflakeSequenceGen;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
@@ -31,13 +32,25 @@ public class EventPublish {
     @Resource
     private ApplicationContext applicationContext;
 
-    @Scheduled(fixedDelay = 2000)
-    public void publishDemoEvent() {
+    private static SnowflakeSequenceGen sequenceGen = new SnowflakeSequenceGen(1, 1);
+
+    @Scheduled(fixedDelay = 100)
+    public void publishDemoEvent() throws InterruptedException {
+        DemoHandleEvent event = createEvent();
+        if (event.getId() > 100000) {
+            Thread.sleep(5000);
+        }
+        applicationContext.publishEvent(event);
+    }
+
+
+    private DemoHandleEvent createEvent() {
         DemoHandleEvent handleEvent = DemoHandleEvent.builder()
                 .eventMsg("event msg: " + dfDateTime.format(LocalDateTime.now()))
                 .id(ID.incrementAndGet())
+                .msgId(sequenceGen.gen())
                 .build();
-        applicationContext.publishEvent(handleEvent);
+        return handleEvent;
     }
 
     @Bean
