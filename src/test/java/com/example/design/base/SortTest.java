@@ -1,6 +1,7 @@
 package com.example.design.base;
 
 import com.example.design.common.entity.Person;
+import com.google.common.collect.ComparisonChain;
 import org.assertj.core.util.Lists;
 
 import java.util.Comparator;
@@ -59,8 +60,22 @@ public class SortTest {
         persons.add(person9);
 
 
-        Person person = persons.stream().sorted(Comparator.comparing(Person::getAge).reversed()).collect(Collectors.toList()).get(0);
+        persons.stream().sorted(Comparator.comparing(Person::getAge).reversed()).collect(Collectors.toList());
 
-        System.out.println(person);
+        System.out.println(persons);
+
+
+        persons.sort(((o1, o2) -> ComparisonChain.start().compare(o1.getAge(), o2.getAge()).result()));
+        System.out.println(persons);
+
+        persons.sort((o1, o2) -> o1.getAge() - o2.getAge());
+
+        System.out.println(persons);
+
+        persons.sort((o1, o2) -> o2.getAge() - o1.getAge());
+
+        System.out.println(persons);
     }
+
+
 }

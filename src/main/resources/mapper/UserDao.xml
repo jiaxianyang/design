@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.design.repo.dao.IUserDao">
+    <resultMap id="userResultMap" type="com.example.design.repo.po.UserPo">
+        <id column="id" property="id" javaType="Long"/>
+        <result column="user_id" property="userId" javaType="Long"/>
+        <result column="user_type" property="userType" javaType="Integer"/>
+        <result column="name" property="name" javaType="java.lang.String"/>
+        <result column="age" property="age" javaType="Integer"/>
+        <result column="sex" property="sex" javaType="Integer"/>
+        <result column="password" property="password" javaType="java.lang.String"/>
+        <result column="content" property="content" javaType="java.lang.String"/>
+        <result column="created_date" property="createdDate" javaType="java.util.Date"/>
+        <result column="update_date" property="updateDate" javaType="java.util.Date"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, user_id, user_type, name, age, password,
+        created_date, update_date
+    </sql>
+
+    <insert id="insert" parameterType="com.example.design.repo.po.UserPo" useGeneratedKeys="true">
+        insert into t_user (
+         user_id, user_type, name, age,sex , content
+        )
+        values (
+            #{user.userId}, #{user.userType}, #{user.name}, #{user.age}, #{user.sex}, #{user.content}
+        )
+    </insert>
+
+    <select id="selectUserByUserId" resultMap="userResultMap">
+        select id, user_id from t_user where user_id = #{userId}
+    </select>
+
+    <select id="selectMinId" resultType="java.lang.Long">
+        select min(id) from t_user;
+    </select>
+
+    <select id="selectRangeId" resultType="java.lang.Long">
+        select id from t_user where id >= #{minId} and  #{maxId} >= id;
+    </select>
+
+    <select id="selectUserById"  resultMap="userResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from t_user where id = #{id}
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Long">
+        select count(*) from t_user;
+    </select>
+
+</mapper>
