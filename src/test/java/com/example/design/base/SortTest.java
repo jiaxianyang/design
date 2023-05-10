@@ -60,9 +60,11 @@ public class SortTest {
         persons.add(person9);
 
 
-        persons.stream().sorted(Comparator.comparing(Person::getAge).reversed()).collect(Collectors.toList());
+        List<Person> reversedSortList = persons.stream().sorted(Comparator.comparing(Person::getAge).reversed()).collect(Collectors.toList());
 
+        List<Person> sortList = reversedSortList.stream().sorted(Comparator.comparing(Person::getAge)).collect(Collectors.toList());
         System.out.println(persons);
+        System.out.println(sortList);
 
 
         persons.sort(((o1, o2) -> ComparisonChain.start().compare(o1.getAge(), o2.getAge()).result()));

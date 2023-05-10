@@ -5,6 +5,7 @@ import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * OrderNodeMsgEnum简介
@@ -115,5 +116,15 @@ public enum OrderNodeMsgEnum {
         }
         return Arrays.stream(OrderNodeMsgEnum.values()).filter(value -> value.getNodeType() == nodeType)
                 .findFirst().orElse(null);
+    }
+
+    public static void main(String[] args) {
+        Optional<OrderNodeMsgEnum> optionalOrderNodeMsgEnum = Arrays.stream(OrderNodeMsgEnum.values()).filter(orderNodeMsgEnum -> orderNodeMsgEnum.getNodeType() == 1000).findFirst();
+
+        optionalOrderNodeMsgEnum.ifPresent(orderNodeMsgEnum -> System.out.println("orderNodeMsgisNull: " + optionalOrderNodeMsgEnum));
+
+        Optional<OrderNodeMsgEnum> optionalOrderNodeMsgEnum2 = Arrays.stream(OrderNodeMsgEnum.values()).filter(orderNodeMsgEnum -> orderNodeMsgEnum.getNodeType() == 120).findFirst();
+
+        optionalOrderNodeMsgEnum2.ifPresent(orderNodeMsgEnum -> System.out.println("orderNodeMsgisNull_ok: " + optionalOrderNodeMsgEnum2));
     }
 }

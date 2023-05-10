@@ -33,6 +33,12 @@ public class ListTest {
         personList.add(p3);
         personList.add(p4);
 
+        int count = 0;
+        for (Person person : personList) {
+            count++;
+        }
+        System.out.println(personList.size() == count);
+
         //必须全部都满足才会返回true
         System.out.println(String.format("allMatch结果：%s", personList.stream().allMatch(person -> (person.getAge() == 5 ))));
 

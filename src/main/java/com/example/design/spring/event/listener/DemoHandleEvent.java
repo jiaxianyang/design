@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DemoHandleEvent {
+@ApplicationEvent(topicKey = "notification.topic.demo")
+public class DemoHandleEvent extends CommonEvent{
     private Long id;
     private Long msgId;
     private String eventMsg;

@@ -1,25 +1,26 @@
 package com.example.design.base;
 
-import java.util.ArrayList;
+import com.example.design.utils.json.JsonUtil;
+import org.assertj.core.util.Lists;
+
+import java.util.Arrays;
+import java.util.List;
 
 public class ArrayTest {
-    public static void main(String[] args) {
-//
-//        String str = "";
-//        String[] split = str.split(",");
-//        for (String s : split) {
-//            System.out.println(s);
-//            System.out.println("==============");
-//        }
-        int[] heights = new int[]{2,1,5,6,2,3};
-        int len = heights.length;
-        int[] newHeights = new int[len + 2];
-        for (int i = 0; i < len; i++) {
-            newHeights[i + 1] = heights[i];
-        }
-        for (int newHeight : newHeights) {
-            System.out.println(newHeight);
-        }
 
+    public static void main(String[] args) throws InterruptedException {
+//
+//
+//        List<List<String>> partition = Lists.newArrayList();
+//        for (List<String> strings : partition) {
+//            System.out.println(strings);
+//        }
+//        System.out.println(partition.get(0));
+
+
+        int[] nums = {2, 9, 1, 10, 0, 11, 9, 13};
+        Arrays.sort(nums);
+        System.out.println(JsonUtil.toJsonString(nums));
+        System.out.println(0 / 2 + 1);
     }
 }

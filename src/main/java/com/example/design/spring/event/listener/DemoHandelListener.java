@@ -16,6 +16,7 @@ import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.event.EventListener;
+import org.springframework.core.annotation.AnnotationUtils;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
@@ -34,8 +35,8 @@ public class DemoHandelListener {
 
     private static final int EXPIRE_IN_SECONDS =  1000;
 
-    @Resource
-    private IUserDao userDao;
+//    @Resource
+//    private IUserDao userDao;
 
     /**
      * loadingCache
@@ -68,46 +69,46 @@ public class DemoHandelListener {
     @Async("myExecutor")
     @EventListener(DemoHandleEvent.class)
     public void handleEvent(DemoHandleEvent demoHandleEvent) {
-        Stopwatch started = Stopwatch.createStarted();
+//        Stopwatch started = Stopwatch.createStarted();
+        log.info("监听DemoHandleEvent ：" + demoHandleEvent.getClass());
         Preconditions.checkNotNull(demoHandleEvent, "demoHandleEvent is null");
-        log.info("【事件监听】: {}", JsonUtil.toJsonString(demoHandleEvent));
-//        String msgId = String.valueOf(demoHandleEvent.getMsgId());
-//        String catchId = StringUtils.substring(String.valueOf(msgId), msgId.length() - 4, msgId.length());
-//        List<String> valueList = loadingCache.get(catchId);
-//        valueList.add(JsonUtil.toJsonString(demoHandleEvent));
+//        log.info("【事件监听】: {}", JsonUtil.toJsonString(demoHandleEvent));
+//        while (demoHandleEvent.getId() > 10000000) {
+//            log.info("数据量已足够 msgId: {}", demoHandleEvent.getMsgId());
+//            return;
+//        }
 //
-//        valueList.sort((o1, o2) -> {
-//            DemoHandleEvent demoHandleEvent1 = null;
-//            DemoHandleEvent demoHandleEvent2 = null;
-//            try {
-//                for (int i = 0; i < 100000; i++) {
-//                    demoHandleEvent1 = JsonUtil.parseObject(o1, DemoHandleEvent.class);
-//                    demoHandleEvent2 = JsonUtil.parseObject(o2, DemoHandleEvent.class);
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            return ComparisonChain.start().compare(demoHandleEvent1.getId(), demoHandleEvent2.getId()).result();
-//        });
-
-        while (demoHandleEvent.getId() > 10000000) {
-            log.info("数据量已足够 msgId: {}", demoHandleEvent.getMsgId());
-            return;
-        }
-
-        Random r = new Random();
-
-        UserPo userPo = UserPo.builder()
-                .age(r.nextInt(100))
-                .name(NameUtils.randomName(true, getRandomInt(2, 3)))
-                .userId(demoHandleEvent.getMsgId())
-                .userType(getRandomInt(0, 3))
-                .sex(getRandomInt(0, 1))
-                .content(JsonUtil.toJsonString(demoHandleEvent))
-                .build();
-        userDao.insert(userPo);
-        log.info("事件处理完成 msgId: {} , elapsed: {} ms, value: {}", demoHandleEvent.getMsgId(), started.elapsed(TimeUnit.MILLISECONDS), JsonUtil.toJsonString(demoHandleEvent));
+//        Random r = new Random();
+//
+//        UserPo userPo = UserPo.builder()
+//                .age(r.nextInt(100))
+//                .name(NameUtils.randomName(true, getRandomInt(2, 3)))
+//                .userId(demoHandleEvent.getMsgId())
+//                .userType(getRandomInt(0, 3))
+//                .sex(getRandomInt(0, 1))
+//                .content(JsonUtil.toJsonString(demoHandleEvent))
+//                .build();
+////        userDao.insert(userPo);
+//        log.info("事件处理完成 msgId: {} , elapsed: {} ms, value: {}", demoHandleEvent.getMsgId(), started.elapsed(TimeUnit.MILLISECONDS), JsonUtil.toJsonString(demoHandleEvent));
     }
+
+
+    @EventListener(CreateUserHandleEvent.class)
+    public void handleCreateUserHandleEvent(CreateUserHandleEvent createUserHandleEvent) {
+        log.info("监听handleCreateUserHandleEvent：" + createUserHandleEvent.getClass());
+    }
+
+
+    @EventListener(CommonEvent.class)
+    public void handleCommonEvent(CommonEvent commonEvent) {
+        ApplicationEvent annotation = getAnnotation(commonEvent);
+        log.info("监听：handleCommonEvent" + commonEvent.getClass() + " anotation_value: " + annotation.topicKey());
+    }
+
+    private static ApplicationEvent getAnnotation(Object object) {
+        return (ApplicationEvent) AnnotationUtils.findAnnotation(object.getClass(), ApplicationEvent.class);
+    }
+
 
     public static int getRandomInt(int Min , int Max){
         Random rand = new Random();

@@ -45,6 +45,9 @@ public class Person {
      */
     private List<Son> sonList;
 
+    private List<String> codes;
+    private List<String> sonNames;
+
     /**
      * account
      */
