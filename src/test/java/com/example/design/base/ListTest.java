@@ -2,10 +2,12 @@ package com.example.design.base;
 
 import com.example.design.common.entity.Person;
 import com.example.design.common.entity.Son;
+import com.example.design.utils.json.JsonUtil;
 import com.google.common.collect.ImmutableList;
 import org.assertj.core.util.Lists;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +35,10 @@ public class ListTest {
         personList.add(p3);
         personList.add(p4);
 
+        List<Long> collect = personList.stream().filter(item -> !item.getManYn()).map(item -> item.getId()).collect(Collectors.toList());
+        Collections.sort(collect);
+
+        System.out.println(JsonUtil.toJsonString(collect));
         int count = 0;
         for (Person person : personList) {
             count++;

@@ -38,7 +38,7 @@ public class Person {
     /**
      * manYn
      */
-    private boolean manYn;
+    private Boolean manYn = false;
 
     /**
      * sonList
@@ -52,6 +52,8 @@ public class Person {
      * account
      */
     private String account;
+
+    private Long id;
 
     public Person(String name, Integer age) {
         this.name = name;
