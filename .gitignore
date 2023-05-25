@@ -31,3 +31,15 @@ build/
 
 ### VS Code ###
 .vscode/
+
+target/
+
+### IntelliJ IDEA ###
+.idea
+*.iml
+*.iws
+*.ipr
+
+
+.DS_Store
+*.log
