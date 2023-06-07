@@ -206,7 +206,7 @@ public class SnowflakeSequenceGen {
         for (int i = 0; i < 10; i++) {
             int count = 0;
             long curTime = snowflakeSequenceGen.timeGen();
-            while (snowflakeSequenceGen.timeGen() - curTime < 10) {
+            while (snowflakeSequenceGen.timeGen() - curTime < 1) {
                 snowflakeSequenceGen.gen();
                 count++;
             }

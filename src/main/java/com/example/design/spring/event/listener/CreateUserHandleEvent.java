@@ -10,8 +10,9 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @ApplicationEvent(topicKey = "notification.topic.create")
-public class CreateUserHandleEvent extends CommonEvent{
+public class CreateUserHandleEvent {
     private Long id;
     private Long msgId;
     private String eventMsg;
+    private String code;
 }

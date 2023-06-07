@@ -41,11 +41,16 @@ public class EventPublish {
         applicationContext.publishEvent(demoHandleEvent);
     }
 
-//    @Scheduled(fixedDelay = 10000)
+//    @Scheduled(fixedDelay = 100000)
     public void publishCreateUserHandleEvent() throws InterruptedException {
         CreateUserHandleEvent userHandleEvent = createUserHandleEvent();
         userHandleEvent.setCode("user");
-        applicationContext.publishEvent(userHandleEvent);
+        try {
+            applicationContext.publishEvent(userHandleEvent);
+        } catch (Exception e) {
+            log.error("error", e);
+            applicationContext.publishEvent(userHandleEvent);
+        }
     }
 
     private DemoHandleEvent createEvent() {

@@ -1,14 +1,12 @@
 package com.example.design.spring.event.listener;
 
-import com.example.design.repo.dao.IUserDao;
-import com.example.design.repo.po.UserPo;
-import com.example.design.utils.NameUtils;
+import com.example.design.common.entity.Person;
 import com.example.design.utils.json.JsonUtil;
 import com.github.benmanes.caffeine.cache.CacheLoader;
 import com.github.benmanes.caffeine.cache.Caffeine;
 import com.github.benmanes.caffeine.cache.LoadingCache;
+import com.google.common.base.Function;
 import com.google.common.base.Preconditions;
-import com.google.common.base.Stopwatch;
 import com.google.common.collect.Lists;
 import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
@@ -21,12 +19,16 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Resource;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
+import java.util.function.BiFunction;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Setter
@@ -66,6 +68,9 @@ public class DemoHandelListener {
         return Lists.newArrayList();
     }
 
+    private static final ConcurrentHashMap<String, String> concurrentHashMap = new ConcurrentHashMap<>();
+    private static final CopyOnWriteArrayList<Person> copyOnWriteArrayList = new CopyOnWriteArrayList();
+
     @Async("myExecutor")
     @EventListener(DemoHandleEvent.class)
     public void handleEvent(DemoHandleEvent demoHandleEvent) {
@@ -99,11 +104,33 @@ public class DemoHandelListener {
     }
 
 
-    @EventListener(CommonEvent.class)
-    public void handleCommonEvent(CommonEvent commonEvent) {
-        ApplicationEvent annotation = getAnnotation(commonEvent);
-        log.info("监听：handleCommonEvent" + commonEvent.getClass() + " anotation_value: " + annotation.topicKey());
+    @EventListener(CreateUserHandleEvent.class)
+    public void handleCreateUserHandleEvent2(CreateUserHandleEvent createUserHandleEvent) {
+        log.info("监听handleCreateUserHandleEventv-2：" + createUserHandleEvent.getClass());
+        throw new RuntimeException();
     }
+
+    @EventListener(Person.class)
+    public void handlePersonHandleEvent(Person person) {
+        log.info("监听handleCreateUserHandleEvent：" + person.getClass());
+        Long segId = Long.parseLong(person.getName()) % 10000;
+        concurrentHashMap.put(person.getName(), JsonUtil.toJsonString(person));
+        copyOnWriteArrayList.add(person);
+        Map<String, List<Person>> collect = copyOnWriteArrayList.stream().collect(Collectors.groupingBy(Person::getName));
+
+        concurrentHashMap.put(segId + "", JsonUtil.toJsonString(collect));
+    }
+
+    @EventListener(Person.class)
+    public void handlePersonHandleEvent2(Person person) {
+        concurrentHashMap.get(person.getName());
+        copyOnWriteArrayList.forEach(p -> p.getId());
+    }
+//    @EventListener(CommonEvent.class)
+//    public void handleCommonEvent(CommonEvent commonEvent) {
+//        ApplicationEvent annotation = getAnnotation(commonEvent);
+//        log.info("监听：handleCommonEvent" + commonEvent.getClass() + " anotation_value: " + annotation.topicKey());
+//    }
 
     private static ApplicationEvent getAnnotation(Object object) {
         return (ApplicationEvent) AnnotationUtils.findAnnotation(object.getClass(), ApplicationEvent.class);
