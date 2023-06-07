@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.design.repo.dao.IPersonDao">
+    <resultMap id="personResultMap" type="com.example.design.repo.po.PersonPo">
+        <id column="id" property="id" javaType="Long"/>
+        <result column="person_id" property="personId" javaType="Integer"/>
+        <result column="person_name" property="personName" javaType="java.lang.String"/>
+        <result column="gmt_create" property="gmtCreate" javaType="java.util.Date"/>
+        <result column="gmt_modified" property="gmtModified" javaType="java.util.Date"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        id, person_id, person_name, gmt_create, gmt_modified
+    </sql>
+
+    <select id="selectPersonById"  resultMap="personResultMap">
+        select
+        <include refid="Base_Column_List"/>
+        from person where id = #{id}
+    </select>
+
+    <select id="selectCount" resultType="java.lang.Long">
+        select count(*) from person;
+    </select>
+
+</mapper>
