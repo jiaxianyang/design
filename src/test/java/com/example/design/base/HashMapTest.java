@@ -1,6 +1,7 @@
 package com.example.design.base;
 
 import com.google.common.collect.Maps;
+import org.apache.commons.collections4.MapUtils;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -9,10 +10,14 @@ import java.util.Map;
 
 public class HashMapTest {
     public static void main(String[] args) {
-        HashMap<String, String> hashMap = new HashMap<>();
+        Map<String, String> hashMap = new HashMap<>();
         hashMap.put("ok", "1111");
-        hashMap.put(null, null);
+//        hashMap.put(null, null);
         System.out.println(hashMap);
+
+        System.out.println("containsKey is null : " +  hashMap.containsKey(null));
+        System.out.println("containsKey is null : " +  hashMap.containsKey(MapUtils.getString(hashMap,"ok")));
+        System.out.println("containsValue is null : " +  String.valueOf(hashMap.get("ok0000")));
 
         System.out.println("===================================");
 
