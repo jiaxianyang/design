@@ -19,9 +19,9 @@ spring:
   application:
     name: springboot-druid
   datasource:
-    username: jiaxianyang_club
+    username: root
     password: jiaxianyang123
-    url: jdbc:mysql://127.0.0.1:3306/jiaxianyang_club?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
+    url: jdbc:mysql://127.0.0.1:3306/test?autoReconnect=true&useUnicode=true&characterEncoding=utf8&serverTimezone=Asia/Shanghai
     driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource            # 数据库连接池类别
     druid:

@@ -34,7 +34,7 @@ public class DemoHandelListener {
 
     private static final int EXPIRE_IN_SECONDS =  1000;
 
-    @Resource
+//    @Resource
     private IUserDao userDao;
 
     /**
@@ -105,7 +105,7 @@ public class DemoHandelListener {
                 .sex(getRandomInt(0, 1))
                 .content(JsonUtil.toJsonString(demoHandleEvent))
                 .build();
-        userDao.insert(userPo);
+//        userDao.insert(userPo);
         log.info("事件处理完成 msgId: {} , elapsed: {} ms, value: {}", demoHandleEvent.getMsgId(), started.elapsed(TimeUnit.MILLISECONDS), JsonUtil.toJsonString(demoHandleEvent));
     }
 
