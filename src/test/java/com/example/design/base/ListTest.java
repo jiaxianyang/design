@@ -88,6 +88,7 @@ public class ListTest {
             add("O");
             add("L");
             add("L");
+
             add("I");
             add("S");
         }};
