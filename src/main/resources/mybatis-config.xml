@@ -40,13 +40,4 @@
 
     </settings>
 
-    <plugins>
-
-        <!-- SQLMarking Plugin -->
-        <plugin interceptor="com.jd.sword.mybatis.plugin.sql.SQLMarkingInterceptor">
-            <!-- 是否开启SQL染色标记插件 -->
-            <property name="enabled" value="true"/>
-        </plugin>
-    </plugins>
-
 </configuration>
