@@ -4,7 +4,6 @@ import com.example.design.common.base.response.Result;
 import com.example.design.spring.event.listener.DemoHandelListener;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;

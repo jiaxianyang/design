@@ -71,26 +71,8 @@ public class DemoHandelListener {
         Stopwatch started = Stopwatch.createStarted();
         Preconditions.checkNotNull(demoHandleEvent, "demoHandleEvent is null");
         log.info("【事件监听】: {}", JsonUtil.toJsonString(demoHandleEvent));
-//        String msgId = String.valueOf(demoHandleEvent.getMsgId());
-//        String catchId = StringUtils.substring(String.valueOf(msgId), msgId.length() - 4, msgId.length());
-//        List<String> valueList = loadingCache.get(catchId);
-//        valueList.add(JsonUtil.toJsonString(demoHandleEvent));
-//
-//        valueList.sort((o1, o2) -> {
-//            DemoHandleEvent demoHandleEvent1 = null;
-//            DemoHandleEvent demoHandleEvent2 = null;
-//            try {
-//                for (int i = 0; i < 100000; i++) {
-//                    demoHandleEvent1 = JsonUtil.parseObject(o1, DemoHandleEvent.class);
-//                    demoHandleEvent2 = JsonUtil.parseObject(o2, DemoHandleEvent.class);
-//                }
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//            return ComparisonChain.start().compare(demoHandleEvent1.getId(), demoHandleEvent2.getId()).result();
-//        });
 
-        while (demoHandleEvent.getId() > 10000000) {
+        while (demoHandleEvent.getId() > 10) {
             log.info("数据量已足够 msgId: {}", demoHandleEvent.getMsgId());
             return;
         }

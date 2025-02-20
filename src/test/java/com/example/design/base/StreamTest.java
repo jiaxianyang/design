@@ -1,9 +1,12 @@
 package com.example.design.base;
 
 import com.example.design.common.entity.Person;
+import com.example.design.utils.json.JsonUtil;
 import org.assertj.core.util.Lists;
+import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Function;
@@ -41,6 +44,20 @@ public class StreamTest {
 
 
         System.out.println(peoples.stream().map(Person::getWeight).reduce(BigDecimal::add));
+    }
+
+    @Test
+    void test2() {
+        List<String> list = new ArrayList<>();
+        list.add("a");
+        list.add("b");
+        list.add("c");
+        list.add("d");
+        list.add("e");
+        List<String> result = list.stream()
+                .filter(val -> !val.equals("c"))
+                .collect(Collectors.toList());
+        System.out.println(JsonUtil.toJsonString(result));
     }
 
     private static Person getPerpon(Person person) {

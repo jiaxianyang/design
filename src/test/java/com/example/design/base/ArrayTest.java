@@ -1,6 +1,7 @@
 package com.example.design.base;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class ArrayTest {
     public static void main(String[] args) {
@@ -20,6 +21,5 @@ public class ArrayTest {
         for (int newHeight : newHeights) {
             System.out.println(newHeight);
         }
-
     }
 }

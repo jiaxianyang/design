@@ -13,9 +13,10 @@ public class SnowflakeSequenceGen {
     private static final Logger LOGGER = LoggerFactory.getLogger(SnowflakeSequenceGen.class);
 
     /**
-     * 设置一个时间初始值  不可以随意调整， 必须是固定值2021-08-14 01:04:23对应的时间戳， 调整会导致id重复   2^41 - 1  差不多可以用69年
+     * 设置一个时间初始值  不可以随意调整， 必须是固定值2010-11-04 09:42:54.657对应的时间戳， 调整会导致id重复   2^41 - 1  差不多可以用69年
+     *
      */
-    public final static long BASE_TIMESTAMP = 1628874263273L;
+    public final static long BASE_TIMESTAMP = 1288834974657L;
 
     /**
      * 5位的机器id

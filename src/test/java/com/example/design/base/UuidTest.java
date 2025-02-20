@@ -2,12 +2,18 @@ package com.example.design.base;
 
 import com.example.design.utils.UuidUtil;
 import com.google.common.util.concurrent.ThreadFactoryBuilder;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.concurrent.ThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+@ExtendWith(MockitoExtension.class)
 public class UuidTest {
 
     public static ThreadPoolExecutor executorService = new ThreadPoolExecutor(5, 5, 30, TimeUnit.SECONDS,
@@ -43,5 +49,11 @@ public class UuidTest {
         if (concurrentHashMap.size() > 10000000) {
             concurrentHashMap.clear();
         }
+    }
+
+    @Test
+    @DisplayName("生成uuid")
+    void generateUUid() {
+        System.out.println(UUID.randomUUID());
     }
 }

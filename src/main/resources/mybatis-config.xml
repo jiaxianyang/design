@@ -2,6 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
+
     <!-- 全局参数 -->
     <settings>
         <!-- 使全局的映射器启用或禁用缓存。 -->
@@ -38,5 +39,14 @@
         <setting name="logImpl" value="STDOUT_LOGGING" />
 
     </settings>
+
+    <plugins>
+
+        <!-- SQLMarking Plugin -->
+        <plugin interceptor="com.jd.sword.mybatis.plugin.sql.SQLMarkingInterceptor">
+            <!-- 是否开启SQL染色标记插件 -->
+            <property name="enabled" value="true"/>
+        </plugin>
+    </plugins>
 
 </configuration>

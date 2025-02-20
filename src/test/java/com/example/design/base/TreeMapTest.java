@@ -1,7 +1,6 @@
 package com.example.design.base;
 
 import com.example.design.common.entity.OrderDetailVo;
-import com.example.design.common.entity.ShipmentOrderAttributeDto;
 import com.example.design.utils.json.JsonUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

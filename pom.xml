@@ -101,6 +101,66 @@
             <version>3.4.4</version>
         </dependency>
 
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>fastjson</artifactId>
+            <version>1.2.83</version> <!-- 请使用最新的版本号 -->
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.poi</groupId>
+            <artifactId>poi-ooxml</artifactId>
+            <version>5.2.3</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.dom4j</groupId>
+            <artifactId>dom4j</artifactId>
+            <version>2.1.3</version>
+        </dependency>
+        <dependency>
+            <groupId>jaxen</groupId>
+            <artifactId>jaxen</artifactId>
+            <version>1.1.6</version>
+        </dependency>
+        <!-- 需引入的核心依赖 -->
+        <dependency>
+            <groupId>com.jd.jmq</groupId>
+            <artifactId>jmq-client-core</artifactId>
+            <version>2.3.3-RC2</version>
+        </dependency>
+
+        <!-- SpringBoot封装 -->
+        <dependency>
+            <groupId>com.jd.jmq</groupId>
+            <!-- 若version >= 2.3.5, 辛苦将artifactId调整为jmq-client-springboot-starter -->
+            <artifactId>jmq-client-springboot-starter</artifactId>
+            <version>2.3.5</version><!--对应2.3.3-RC2版本客户端-->
+        </dependency>
+
+        <dependency>
+            <groupId>com.jd.sword</groupId>
+            <artifactId>sword-mybatis-plugins</artifactId>
+            <version>1.0.1-SNAPSHOT</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.mybatis</groupId>
+                    <artifactId>mybatis</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.projectlombok</groupId>
+                    <artifactId>lombok</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.apache.commons</groupId>
+                    <artifactId>commons-lang3</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.slf4j</groupId>
+                    <artifactId>slf4j-api</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
     </dependencies>
 
     <build>
